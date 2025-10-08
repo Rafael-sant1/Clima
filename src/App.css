@@ -1,0 +1,68 @@
+.app-container{
+  min-height: 100vh;
+  background: linear-gradient(135deg, #9000ff 0%, rgb(0, 60, 255) 100%);
+  padding: 32px;
+}
+.content-wrapper{
+  max-width: 768px;
+  margin: 0 auto;
+}
+header{
+  text-align: center;
+  margin-bottom: 32px;
+}
+header h1{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
+}
+header p{
+  color: #dbeafe;
+  font-size: 1.2em;
+}
+.busca-box{
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px #000000ad;
+}
+.busca-container{
+  display: flex;
+  gap: 8px;
+}
+.busca-container input{
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-coler 0.2s, box-sjadpw 0.2s;
+}
+.busca-container input:focus{
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.692);
+}
+.busca-container button{
+  padding: 12px 24px;
+  background: #7341fd;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: painter;
+  transition: background 0.2s;
+}
+.busca-box button:hover{
+  background: #b325eb;
+}
+.busca-box button:disabled{
+  background: #9ca3af;
+  cursor: not-allowed;
+}
