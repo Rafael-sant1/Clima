@@ -66,3 +66,28 @@ header p{
   background: #9ca3af;
   cursor: not-allowed;
 }
+.card-resultado{
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px #000;
+  padding: 32px;
+}
+.info-cidade{
+  text-align: center;
+  margin-bottom: 24px;
+}
+.nome-cidade{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom:8px ;
+}
+.desc-cidade{
+  color: #4b5563;
+  text-transform: capitalize;
+  font-size: 1.2em;
+}
