@@ -5,8 +5,46 @@ import { MapPinned } from 'lucide-react';
 import { Thermometer,Waves,Wind } from 'lucide-react';
 
 function App() {
+  const [cidade, SetCidade] = useState("");
+  const [clima,setClima] = useState(null);
+  const [carregando, SetCarregando] = useState(false);
+  const [erro, SetErro] =useState("");
 
-  return (
+  const buscarClima = async () =>{
+    if(!cidade.trim()){
+      SetErro("Por favor, digite uma cidade");
+      return;
+    }
+  
+  SetCarregando(true);
+  SetErro("");
+
+  try{
+    //Aqui fica o link e api_key
+    const API_KEY = "50878f4678cd0841144b44b2fca0ccc0";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt_br`;
+    console.log("URL da requisição", url);
+    const resposta = await fetch(url);
+
+    if(!resposta.ok){
+      throw new Error("Cidade não encontrada")
+    }
+    const dados = await resposta.json();
+    setClima(dados);
+  } catch (error) {
+    SetErro(error.message);
+    setClima(null);
+  } finally {
+    SetCarregando(false);
+  }
+};
+  const handKeyPress = (e) =>{
+    if (e.key === "Enter"){
+      buscarClima();
+    }
+  }
+
+  return(
     <>
       <div className="app-container">
         <div className="content-wrapper">
@@ -40,7 +78,7 @@ function App() {
                 28ºC
               </div>
               <div className="sens-termica">
-                31ºC
+                Sensação termica: 31ºC
               </div>
             </div>
 
@@ -87,6 +125,6 @@ function App() {
       </div>
     </>
   )
-}
+};
 
 export default App
