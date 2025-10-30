@@ -66,6 +66,14 @@ header p{
   background: #9ca3af;
   cursor: not-allowed;
 }
+.erro-message{
+  margin-top: 16px;
+  padding: 12px;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  border-radius: 8px;
+}
 .card-resultado{
   background: #fff;
   border-radius: 12px;

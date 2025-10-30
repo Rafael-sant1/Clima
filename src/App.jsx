@@ -5,14 +5,14 @@ import { MapPinned } from 'lucide-react';
 import { Thermometer,Waves,Wind } from 'lucide-react';
 
 function App() {
-  const [cidade, SetCidade] = useState("");
+  const [cidade, setCidade] = useState("");
   const [clima,setClima] = useState(null);
   const [carregando, SetCarregando] = useState(false);
   const [erro, SetErro] =useState("");
 
   const buscarClima = async () =>{
     if(!cidade.trim()){
-      SetErro("Por favor, digite uma cidade");
+      SetErro("❗ Por favor, digite uma cidade ❗");
       return;
     }
   
@@ -27,7 +27,7 @@ function App() {
     const resposta = await fetch(url);
 
     if(!resposta.ok){
-      throw new Error("Cidade não encontrada")
+      throw new Error("❌ Cidade não encontrada ❌")
     }
     const dados = await resposta.json();
     setClima(dados);
@@ -38,11 +38,11 @@ function App() {
     SetCarregando(false);
   }
 };
-  const handKeyPress = (e) =>{
+  const handleKeyPress = (e) =>{
     if (e.key === "Enter"){
       buscarClima();
     }
-  }
+  };
 
   return(
     <>
@@ -57,28 +57,42 @@ function App() {
 
           <div className="busca-box">
             <div className="busca-container">
-              <input type="text" />
-              <button>Buscar</button>
+              <input type="text"  
+              placeholder="Cidade..." 
+              value={cidade}
+              onChange={(e) => setCidade(e.target.value)}
+              onKeyDown={handleKeyPress}
+              />
+              <button
+                onClick={buscarClima}
+                disabled={carregando}
+              >
+                 {carregando ? "Buscando..." : "Buscar"}
+              </button>
             </div>
+            {erro  && <p className="erro-message">{erro}</p>}
           </div>
 
+          {clima && (<>
           {/* Resultado do Clima */}
           <div className="card-resultado">
             <div className="info-cidade">
               <div className="nome-cidade">
                 <MapPinned color="black" size={48} />
-                Campinas,BR
+                {clima.name},{clima.sys.country}
               </div>
-              <p className="desc-cidade">Nublado</p>
+              <p className="desc-cidade">
+                {clima.weather[0].description}
+              </p>
             </div>
 
             {/* Temperatura principal */}
             <div className="temperatura-box">
               <div className="temperatura-valor">
-                28ºC
+                {Math.round(clima.main.temp)}ºC
               </div>
               <div className="sens-termica">
-                Sensação termica: 31ºC
+                Sensação termica: {Math.round(clima.feels_like)}ºC
               </div>
             </div>
 
@@ -91,7 +105,8 @@ function App() {
                   Min/Max
                 </p>
                 <p className="detal-valor">
-                  25ºC/28ºC
+                  {Math.round(clima.main.temp_min)}ºC/
+                  {Math.round(clima.main.temp_max)}ºC
                 </p>
               </div>
 
@@ -103,7 +118,7 @@ function App() {
                   Umidade
                 </p>
                 <p className="detal-valor">
-                  20%
+                  {clima.main.humidity}%
                 </p>
               </div>
 
@@ -115,12 +130,12 @@ function App() {
                   vento
                 </p>
                 <p className="detal-valor">
-                  12 km/h
+                  {Math.round(clima.wind.speed * 3.6)} km/h
                 </p>
               </div>
             </div>
           </div>
-
+          </>)}
         </div>
       </div>
     </>
